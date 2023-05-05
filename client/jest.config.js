@@ -1,0 +1,6 @@
+module.exports = {
+  // ...
+  setupFilesAfterEnv: ["./setupFilesAfterEnv.js"],
+  setupFilesAfterEnv: ["./setupJest.js"],
+  // ...
+};
