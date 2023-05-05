@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  background-color: #58595B;
+  height: 93.2vh;
+}
+
+.loggedin--wrapper {
+  display: flex;
+  justify-content: space-around;
+}

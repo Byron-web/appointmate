@@ -1,0 +1,34 @@
+.doctor-list--container {
+    width: 65%;
+}
+
+.doctor-list--wrapper {
+    padding: 25px;
+    background-color: #E11A24;
+    display: flex;
+    justify-content: space-between;
+}
+
+.doctor-list--wrapper h1 {
+    color: #FFF;
+    text-shadow: 3px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.card-footer--wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date--wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.main-list--wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
