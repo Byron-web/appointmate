@@ -10,33 +10,25 @@ Once you have installed the required software, follow these steps:
 
 1. Clone the repository to your local machine:
 
-bashCopy code
-
-`git clone https://github.com/your-username/appointmate.git`
+`git clone https://github.com/Byron-web/appointmate`
 
 2. Navigate to the project directory:
-
-bashCopy code
 
 `cd appointmate`
 
 3. Install the dependencies:
 
-Copy code
-
 `npm install`
 
 4. Create a `.env` file in the root directory of the project and set the following environment variables:
-
-makefileCopy code
 
 `PORT=3000
 
 MONGODB_URI=mongodb://localhost:27017/appointmate
 
-5. Start the application:
+Or use the Altas URI already configured within the app.
 
-sqlCopy code
+5. Start the application:
 
 `npm start`
 
@@ -50,19 +42,65 @@ To deploy the AppointMate web application to a cloud hosting provider such as AW
 
 Once the AppointMate web application is up and running, doctors and patients can log in using one of three methods: Facebook, Google, or username and password. Upon successful login, a JWT (JSON Web Token) will be generated and stored in local storage. Doctors can create, edit, and delete appointments, as well as view patient information. Patients can view their upcoming appointments.
 
+For Doctor:
+
+1.  Log in to the app using your account credentials.
+2.  After logging in, you will see the dashboard. Here, you can see a list of your appointments.
+3.  To create a new appointment, click on the "Create Appointment" button. Select the patient's name from the drop-down list (which is populated with all the patients who have signed up), enter the reason for the appointment in the text box, select the status from the drop-down list, and finally select the date and time of the appointment.
+4.  Click "Save" to create the appointment.
+5.  To edit an appointment, click on the appointment from the list of appointments on the dashboard. Edit the necessary details and click "Save" to update the appointment.
+6.  To delete an appointment, click on the appointment from the list of appointments on the dashboard. Click the "Delete" button to remove the appointment.
+
+For Patient:
+
+1.  Log in to the app using your account credentials.
+2.  After logging in, you will see the dashboard. Here, you can see a list of your appointments.
+3.  To view your appointment details, click on the appointment from the list of appointments on the dashboard.
+4.  Please note that as a patient, you cannot edit, book, or delete appointments.
+
 ## Testing
 
 The AppointMate web application should be thoroughly tested before deployment to ensure that it meets the functional and non-functional requirements outlined in this documentation. Automated unit and integration tests should be written using a testing framework such as Jest or Mocha, and manual end-to-end testing should be performed by a dedicated QA team or individual. Testing should cover all user stories and edge cases.
 
 To run the automated tests, run the following command:
 
-bashCopy code
-
 `npm test`
 
 ## Conclusion
 
 This readme file provides information on how to install, deploy, and use the AppointMate web application, as well as how to test it. By following the steps outlined in this document, you should be able to run the application locally, deploy it to a cloud hosting provider, and use it to manage appointments for doctors and patients. Remember to test the application thoroughly before deployment to ensure that it meets the functional and non-functional requirements outlined in this documentation.
+
+## Security Measures
+
+- Used JWT for authentication
+- Created a custom route policy that only allows access to certain data and views according to the users "role"
+- The JWT token provided expires within an hour
+- The MongoDB URI is safely stored in a .env file
+- A user needs to be logged in to view any of the app's data or sensitive views
+- Not linked to any third party APIs or third party libraries
+
+## Libraries
+
+### React App (Frontend)
+
+- Jose: A JavaScript Object Signing and Encryption (JOSE) library that supports JSON Web Tokens (JWT) and JSON Object Signing and Encryption (JOSE) standards.
+- Lodash: A JavaScript utility library that provides functions for common programming tasks such as iterating arrays, manipulating objects, and working with strings.
+- React-Datepicker: A simple and reusable datepicker component for React.
+- @testing-library/jest-dom: A testing utility library that provides custom Jest matchers for DOM elements.
+- React-Test-Renderer: A testing utility library for rendering React components to a JSON format.
+- Text-Encoding: A JavaScript polyfill for the Encoding Living Standard APIs.
+
+### Node.js/Express App (Backend)
+
+- Body-Parser: A middleware for parsing incoming request bodies in a middleware before your handlers, available under the req.body property.
+- Cors: A middleware that enables CORS with various options.
+- Jsonwebtoken: A library that allows you to generate and verify JSON Web Tokens.
+- Mongoose: An Object Data Modeling (ODM) library for MongoDB and Node.js.
+- Nodemon: A tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+- Swagger-jsdoc: A library that allows you to write Swagger specification using JSDoc syntax.
+- Swagger-ui-express: A middleware for express to serve the Swagger UI bound to your Swagger specification.
+- UUID: A library for generating universally unique identifiers (UUIDs).
+- Moment: A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
 # AppointMate Software Requirements Documentation
 
