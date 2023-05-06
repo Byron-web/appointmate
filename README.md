@@ -1,3 +1,5 @@
+![example image](./Screenshots/Welcome.png)
+
 ## Installation and Setup
 
 To run the AppointMate web application locally, you will need to have the following software installed on your machine:
