@@ -40,9 +40,15 @@ To deploy the AppointMate web application to a cloud hosting provider such as AW
 
 ## Usage
 
+![example image](./Screenshots/Flowchart.png)
+
 Once the AppointMate web application is up and running, doctors and patients can log in using one of three methods: Facebook, Google, or username and password. Upon successful login, a JWT (JSON Web Token) will be generated and stored in local storage. Doctors can create, edit, and delete appointments, as well as view patient information. Patients can view their upcoming appointments.
 
+![example image](./Screenshots/Login-register.png)
+
 For Doctor:
+
+![example image](./Screenshots/Doctor-view.png)
 
 1.  Log in to the app using your account credentials.
 2.  After logging in, you will see the dashboard. Here, you can see a list of your appointments.
@@ -52,6 +58,8 @@ For Doctor:
 6.  To delete an appointment, click on the appointment from the list of appointments on the dashboard. Click the "Delete" button to remove the appointment.
 
 For Patient:
+
+![example image](./Screenshots/Patient-view.png)
 
 1.  Log in to the app using your account credentials.
 2.  After logging in, you will see the dashboard. Here, you can see a list of your appointments.
