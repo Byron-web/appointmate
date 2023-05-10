@@ -25,6 +25,8 @@ const SignupForm = ({ handleShowLogin }) => {
   const [lastname, setLateName] = useState("");
   const [email, setEmail] = useState("");
   const [mobileNo, setMobileNo] = useState("");
+  const [degree, setDegree] = useState("");
+  const [practiceNumber, setPracticeNumber] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +57,8 @@ const SignupForm = ({ handleShowLogin }) => {
           lastname: lastname,
           email: email,
           mobileNo: mobileNo,
+          degree: degree,
+          practiceNumber: practiceNumber,
         };
       }
       if (role === "patient") {
@@ -179,6 +183,30 @@ const SignupForm = ({ handleShowLogin }) => {
         </Form.Group>
       ) : (
         <></>
+      )}
+      {/* Degree */}
+      {role === "doctor" && (
+        <>
+          <Form.Label>Degree</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter degree"
+            value={degree}
+            onChange={(e) => setDegree(e.target.value)}
+          />
+        </>
+      )}
+      {/* Practice number */}
+      {role === "doctor" && (
+        <>
+          <Form.Label>Practice number</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter practice number"
+            value={practiceNumber}
+            onChange={(e) => setPracticeNumber(e.target.value)}
+          />
+        </>
       )}
       <hr className="mt-5 mb-3" />
       <div className="d-flex justify-content-around align-items-center mb-3">

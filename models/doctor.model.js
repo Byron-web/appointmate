@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const { model } = require("mongoose");
 
-//User Doctor Schema
 const DoctorSchema = new mongoose.Schema({
-  username: {
+  userId: {
     type: String,
     required: true,
   },
@@ -20,6 +19,14 @@ const DoctorSchema = new mongoose.Schema({
     required: true,
   },
   mobileNo: {
+    type: String,
+    required: true,
+  },
+  degree: {
+    type: String,
+    required: true,
+  },
+  practiceNumber: {
     type: String,
     required: true,
   },

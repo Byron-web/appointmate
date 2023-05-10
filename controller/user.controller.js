@@ -42,8 +42,6 @@ exports.register = async (req, res) => {
         lastname: userDetails.lastname,
         email: userDetails.email,
         mobileNo: userDetails.mobileNo,
-        degree: userDetails.degree,
-        practiceNumber: userDetails.practiceNumber,
       });
     }
     if (role === USER_ROLE_PATIENT) {
