@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome component renders correctly 1`] = `
+<div
+  className="welcome--wrapper"
+>
+  <div
+    className="welcome--header"
+  >
+    <h1>
+      Welcome
+    </h1>
+  </div>
+  <div
+    className="banner-info--wrapper"
+  >
+    <div
+      className="banner-info--container container"
+    >
+      <h4>
+        Login by clicking the login button on the top left of this page
+      </h4>
+      <div
+        className="banner-info--divider"
+      />
+      <div
+        className="banner-info-footer"
+      >
+        <span
+          className="mx-3"
+        >
+          Or
+        </span>
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+          <a
+            href="https://github.com/Byron-web/appointmate"
+            target="_blank"
+          >
+            View Code
+          </a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
