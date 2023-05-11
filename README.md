@@ -44,7 +44,7 @@ To deploy the AppointMate web application to a cloud hosting provider such as AW
 
 ![example image](./Screenshots/Flowchart.png)
 
-Once the AppointMate web application is up and running, doctors and patients can log in using one of three methods: Facebook, Google, or username and password. Upon successful login, a JWT (JSON Web Token) will be generated and stored in local storage. Doctors can create, edit, and delete appointments, as well as view patient information. Patients can view their upcoming appointments.
+Once the AppointMate web application is up and running, doctors and patients can log in using username and password. Upon successful login, a JWT (JSON Web Token) will be generated and stored in local storage. Doctors can create, edit, and delete appointments. Patients can view their upcoming appointments.
 
 ![example image](./Screenshots/Login-register.png)
 
@@ -70,7 +70,7 @@ For Patient:
 
 ## Testing
 
-The AppointMate web application should be thoroughly tested before deployment to ensure that it meets the functional and non-functional requirements outlined in this documentation. Automated unit and integration tests should be written using a testing framework such as Jest or Mocha, and manual end-to-end testing should be performed by a dedicated QA team or individual. Testing should cover all user stories and edge cases.
+The AppointMate web application should be thoroughly tested before deployment to ensure that it meets the functional and non-functional requirements outlined in this documentation. Automated unit and integration tests should be written using a testing framework (Jest).
 
 To run the automated tests, run the following command:
 
@@ -78,7 +78,7 @@ To run the automated tests, run the following command:
 
 ## Conclusion
 
-This readme file provides information on how to install, deploy, and use the AppointMate web application, as well as how to test it. By following the steps outlined in this document, you should be able to run the application locally, deploy it to a cloud hosting provider, and use it to manage appointments for doctors and patients. Remember to test the application thoroughly before deployment to ensure that it meets the functional and non-functional requirements outlined in this documentation.
+This readme file provides information on how to install, deploy, and use the AppointMate web application, as well as how to test it. By following the steps outlined in this document, you should be able to run the application locally, deploy it to a cloud hosting provider, and use it to manage appointments for doctors and patients. Remember to test the application thoroughly before deployment.
 
 ## Security Measures
 
@@ -118,7 +118,7 @@ This readme file provides information on how to install, deploy, and use the App
 
 The AppointMate web application will be built using a MERN (MongoDB, Express.js, React.js, Node.js) stack. MongoDB, a NoSQL database, will be used to store data about patients and appointments. The server will be built using Express.js, and it will provide a RESTful API for the frontend to interact with. The frontend will be built using React.js with CRA, and it will be styled using react-bootstrap.
 
-Authentication will be handled using Helmut and custom middleware. There will be two types of users in the system: doctors and patients. Patients can view their appointments, whereas doctors can create, edit, and delete appointments, as well as view patient information.
+Authentication will be handled using custom middleware. There will be two types of users in the system: doctors and patients. Patients can view their appointments, whereas doctors can create, edit, and delete appointments.
 
 Doctors and patients can log in using one of three methods: Facebook, Google, or username and password. Upon successful login, a JWT (JSON Web Token) will be generated and stored in local storage.
 
@@ -136,19 +136,17 @@ Doctors and patients can log in using one of three methods: Facebook, Google, or
 
 - As a patient, I want to be able to view my upcoming appointments, so that I can plan accordingly.
 
-- As a patient, I want to be able to log in using my Facebook or Google account, so that I don't have to remember another username and password.
-
 - As a patient, I want to be able to register for an account using my email address, so that I can use the app.
 
 - As a patient, I want to be able to log in using my email address and password, so that I can access my appointments.
 
 ### Similar Software
 
-There are several similar apps on the market, such as Zocdoc, Doximity, and MyChart. However, AppointMate offers several unique features that set it apart from the competition. First, AppointMate allows doctors to create, edit, and delete appointments, whereas some other apps only allow patients to schedule appointments. Second, AppointMate offers three login options: Facebook, Google, and email/password, whereas some other apps only offer one or two options. Finally, AppointMate is designed to be simple and easy to use, with a clean and intuitive user interface.
+There are several similar apps on the market, such as Zocdoc, Doximity, and MyChart. However, AppointMate offers several unique features that set it apart from the competition. First, AppointMate allows doctors to create, edit, and delete appointments, whereas some other apps only allow patients to schedule appointments. Second,  AppointMate is designed to be simple and easy to use, with a clean and intuitive user interface.
 
 ### Functional Requirements
 
-1. Users can register for an account using their email address or log in using their Facebook or Google account.
+1. Users can register for an account using their email address.
 
 2. Doctors can create new appointments and assign them to patients.
 
@@ -170,7 +168,7 @@ There are several similar apps on the market, such as Zocdoc, Doximity, and MyCh
 
 1. The app should load quickly on a fast internet connection.
 
-2. The app should be reliable and available 24/7, with a service level agreement (SLA) of 99.9% uptime.
+2. The app should be reliable and available 24/7.
 
 3. The app should be scalable, able to handle increased traffic as the user base grows.
 
@@ -179,8 +177,6 @@ There are several similar apps on the market, such as Zocdoc, Doximity, and MyCh
 5. The app should be tested thoroughly, with automated unit and integration tests as well as manual end-to-end testing.
 
 # Constraints
-
-- The app must comply with relevant data privacy regulations, such as GDPR and HIPAA.
 
 - The app must be hosted on a secure server and use encryption to protect sensitive data.
 
@@ -196,4 +192,4 @@ There are several similar apps on the market, such as Zocdoc, Doximity, and MyCh
 
 # Conclusion
 
-This software requirements documentation outlines the system architecture, user stories, functional and non-functional requirements, constraints, and assumptions for the AppointMate web application. The app will be built using the MERN stack and will offer unique features such as doctor-managed appointments and multiple login options. The app will prioritize security, accessibility, reliability, scalability, maintainability, and testing. The app must comply with relevant data privacy regulations and be hosted on a secure server. Users must have access to a modern web browser and a reliable internet connection and must be comfortable sharing their personal and medical information with the app.
+This software requirements documentation outlines the system architecture, user stories, functional and non-functional requirements, constraints, and assumptions for the AppointMate web application. The app will be built using the MERN stack and will offer unique features such as doctor-managed appointments. The app will prioritize security, accessibility, reliability, scalability, maintainability, and testing. The app must comply with relevant data privacy regulations and be hosted on a secure server. Users must have access to a modern web browser and a reliable internet connection and must be comfortable sharing their personal and medical information with the app.
