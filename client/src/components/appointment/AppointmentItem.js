@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import "./appointmentStyles.css";
 import * as jose from "jose";
+import config from "../../config";
 
 //State brought in as props from parent component(AppointmentList)
 const AppointmentItem = ({
@@ -47,7 +48,7 @@ const AppointmentItem = ({
     try {
       const token = document.cookie.split("=")[1];
       const res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/api/appointment/${id}`,
+        `${config.REACT_APP_API_ENDPOINT}/api/appointment/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -77,7 +78,7 @@ const AppointmentItem = ({
     try {
       const token = document.cookie.split("=")[1];
       const res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/api/appointment/${id}`,
+        `${config.REACT_APP_API_ENDPOINT}/api/appointment/${id}`,
         {
           method: "PUT",
           headers: {

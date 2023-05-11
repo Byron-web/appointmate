@@ -7,6 +7,7 @@ import * as jose from "jose";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatInTimeZone } from "date-fns-tz";
+import config from "../../config";
 
 // Define a functional component called AppointmentList
 const AppointmentList = () => {
@@ -42,7 +43,7 @@ const AppointmentList = () => {
       try {
         // Send a GET request to the server to fetch appointments for the logged in user
         const res = await fetch(
-          `${process.env.REACT_APP_API_ENDPOINT}/api/appointment/${role}/${id}`,
+          `${config.REACT_APP_API_ENDPOINT}/api/appointment/${role}/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -74,7 +75,7 @@ const AppointmentList = () => {
       try {
         // Send a GET request to the server to fetch all patients
         const res = await fetch(
-          `${process.env.REACT_APP_API_ENDPOINT}/api/patient`,
+          `${config.REACT_APP_API_ENDPOINT}/api/patient`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -135,7 +136,7 @@ const AppointmentList = () => {
       );
       console.log(date);
       const res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/api/appointment`,
+        `${config.REACT_APP_API_ENDPOINT}/api/appointment`,
         {
           method: "POST",
           headers: {
@@ -167,7 +168,7 @@ const AppointmentList = () => {
   const handleDelete = async () => {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/api/appointment/${id}`,
+        `${config.REACT_APP_API_ENDPOINT}/api/appointment/${id}`,
         {
           method: "DELETE",
           headers: {

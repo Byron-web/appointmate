@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import * as _ from "lodash";
+import config from "../../config";
 
 /* This code imports React and the useState hook from the "react" library, as well as Form, and Button components from the "react-bootstrap" library.
 
@@ -82,7 +83,7 @@ const SignupForm = ({ handleShowLogin }) => {
         };
       }
       const res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/api/users/register`,
+        `${config.REACT_APP_API_ENDPOINT}/api/users/register`,
         {
           method: "POST",
           headers: {

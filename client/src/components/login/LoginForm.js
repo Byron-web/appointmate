@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import config from "../../config";
 
 //A component that renders a login form.
 const LoginForm = ({ handleShowSignup }) => {
@@ -15,7 +16,7 @@ const LoginForm = ({ handleShowSignup }) => {
     const loginData = { username, password };
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/api/users/login`,
+        `${config.REACT_APP_API_ENDPOINT}/api/users/login`,
         {
           method: "POST",
           headers: {
