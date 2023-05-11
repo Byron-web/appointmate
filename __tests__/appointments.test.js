@@ -5,7 +5,7 @@ describe("POST /api/users/login", () => {
   it("should log in a user and return a token", async () => {
     const res = await request(app)
       .post("/api/users/login")
-      .send({ username: "Doctor", password: "123", roles: ["doctor"] });
+      .send({ username: "Kevin", password: "123", roles: ["doctor"] });
     expect(res.statusCode).toEqual(200);
     expect(res.body.token).toBeDefined();
   });

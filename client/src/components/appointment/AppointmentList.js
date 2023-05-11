@@ -6,6 +6,7 @@ import "./appointmentStyles.css";
 import * as jose from "jose";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { formatInTimeZone } from "date-fns-tz";
 
 // Define a functional component called AppointmentList
 const AppointmentList = () => {
@@ -123,7 +124,16 @@ const AppointmentList = () => {
       setErrorMessage("You need to choose a status and patient");
       return;
     }
+
     try {
+      // Convert the date to the desired timezone
+      const date = new Date(newAppointmentDate);
+      const dateInDesiredTimeZone = formatInTimeZone(
+        date,
+        "Africa/Johannesburg",
+        "yyyy-MM-dd HH:mm:ss.SSS"
+      );
+      console.log(date);
       const res = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/api/appointment`,
         {
@@ -136,7 +146,7 @@ const AppointmentList = () => {
             doctorId: id,
             patientId: newAppointmentPatientId,
             reason: newAppointmentReason,
-            date: newAppointmentDate,
+            date: dateInDesiredTimeZone,
             status: newAppointmentStatus,
           }),
         }

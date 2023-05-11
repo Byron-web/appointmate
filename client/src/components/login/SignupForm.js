@@ -97,8 +97,6 @@ const SignupForm = ({ handleShowLogin }) => {
       }
       setSignupSuccess(true);
       setSignupError("");
-      document.cookie = `token=${(await res.json()).token}`;
-      window.location.reload();
     } catch (err) {
       setSignupSuccess(false);
       setSignupError(err);

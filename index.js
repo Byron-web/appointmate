@@ -16,6 +16,7 @@ const swaggerUi = require("swagger-ui-express");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
 const port = process.env.PORT || config.port;
 
 // Priority serve any static files.
