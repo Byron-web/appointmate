@@ -22,7 +22,7 @@ const port = process.env.PORT || config.port;
 //Serve static files if app is in production mode.
 if (process.env.NODE_ENV === "production") {
   // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, "./client/build")));
+  app.use(express.static("client/build"));
 
   // All remaining requests return the React app, so it can handle routing.
   app.get("*", function (request, response) {
