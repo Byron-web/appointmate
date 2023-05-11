@@ -52,7 +52,7 @@ function Navbar({ loggedIn, setLoggedIn, setLoginClicked }) {
           </Button>
         ) : (
           <Button
-            className="mt-10"
+            className="mt-10 login-button"
             variant="secondary"
             onClick={handleLoginClick}
           >

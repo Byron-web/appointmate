@@ -15,6 +15,10 @@
     width: 5%;
 }
 
+.login-button {
+    margin-right: 10px;
+}
+
 /* Patient List */
 
 .list-group {
