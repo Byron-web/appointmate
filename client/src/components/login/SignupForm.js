@@ -40,7 +40,19 @@ const SignupForm = ({ handleShowLogin }) => {
       return;
     }
 
-    if (!firstname || !lastname || !email || !mobileNo || role === "doctor") {
+    if (role === "doctor") {
+      if (
+        !firstname ||
+        !lastname ||
+        !email ||
+        !mobileNo ||
+        !degree ||
+        !practiceNumber
+      ) {
+        setSignupError("Missing required fields");
+        return;
+      }
+    } else if (!firstname || !lastname || !email || !mobileNo) {
       setSignupError("Missing required fields");
       return;
     }

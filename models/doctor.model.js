@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const { model } = require("mongoose");
 
 const DoctorSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
   firstname: {
     type: String,
     required: true,

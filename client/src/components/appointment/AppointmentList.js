@@ -13,13 +13,15 @@ const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [newAppointmentPatientId, setNewAppointmentPatientId] = useState("");
+  const [newAppointmentPatientId, setNewAppointmentPatientId] =
+    useState("default");
   const [newAppointmentReason, setNewAppointmentReason] = useState("");
-  const [newAppointmentStatus, setNewAppointmentStatus] = useState("");
+  const [newAppointmentStatus, setNewAppointmentStatus] = useState("default");
   const [newAppointmentDate, setNewAppointmentDate] = useState(new Date());
-  const [editAppointmentPatientId, setEditAppointmentPatientId] = useState("");
+  const [editAppointmentPatientId, setEditAppointmentPatientId] =
+    useState("default");
   const [editAppointmentReason, setEditAppointmentReason] = useState("");
-  const [editAppointmentStatus, setEditAppointmentStatus] = useState("");
+  const [editAppointmentStatus, setEditAppointmentStatus] = useState("default");
   const [editAppointmentDate, setEditAppointmentDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
 
@@ -131,7 +133,7 @@ const AppointmentList = () => {
             Authorization: `${token}`,
           },
           body: JSON.stringify({
-            doctorId: username,
+            doctorId: id,
             patientId: newAppointmentPatientId,
             reason: newAppointmentReason,
             date: newAppointmentDate,
@@ -233,7 +235,6 @@ const AppointmentList = () => {
               <Form.Select
                 aria-label="Default select example"
                 value={newAppointmentPatientId}
-                defaultValue={"default"}
                 onChange={(e) =>
                   setNewAppointmentPatientId(e.currentTarget.value)
                 }
@@ -255,7 +256,6 @@ const AppointmentList = () => {
               <Form.Select
                 aria-label="Default select example"
                 value={newAppointmentStatus}
-                defaultValue={"default"}
                 onChange={(e) => setNewAppointmentStatus(e.currentTarget.value)}
               >
                 <option value="default">Please select option</option>
@@ -268,8 +268,11 @@ const AppointmentList = () => {
               <br />
               <DatePicker
                 selected={newAppointmentDate}
-                onChange={(e) => setNewAppointmentDate(e.currentTarget.Date)}
-                dateFormat="dd/MM/yyyy"
+                onChange={(date) => setNewAppointmentDate(date)}
+                dateFormat="dd/MM/yyyy h:mm aa"
+                showTimeSelect
+                timeFormat="h:mm aa"
+                timeIntervals={30}
               />
             </Form.Group>
           </Form>

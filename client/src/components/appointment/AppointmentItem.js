@@ -190,7 +190,6 @@ const AppointmentItem = ({
               <Form.Select
                 aria-label="Default select example"
                 value={editAppointmentPatientId}
-                defaultValue={"default"}
                 onChange={(e) =>
                   setEditAppointmentPatientId(e.currentTarget.value)
                 }
@@ -216,7 +215,6 @@ const AppointmentItem = ({
               <Form.Select
                 aria-label="Default select example"
                 value={editAppointmentStatus}
-                defaultValue={"default"}
                 onChange={(e) =>
                   setEditAppointmentStatus(e.currentTarget.value)
                 }
@@ -233,8 +231,11 @@ const AppointmentItem = ({
               {/* Edit date and time */}
               <DatePicker
                 selected={editAppointmentDate}
-                onChange={(e) => setEditAppointmentDate(e.currentTarget.Date)}
-                dateFormat="dd/MM/yyyy"
+                onChange={(date) => setEditAppointmentDate(date)}
+                dateFormat="dd/MM/yyyy h:mm aa"
+                showTimeSelect
+                timeFormat="h:mm aa"
+                timeIntervals={30}
               />
             </Form.Group>
           </Form>
