@@ -38,7 +38,7 @@ Or use the Altas URI already configured within the app.
 
 ## Deployment
 
-To deploy the AppointMate web application to a cloud hosting provider such as AWS, Heroku, or Vercel, follow the provider's documentation on deploying a Node.js application. Set the `MONGODB_URI` and `JWT_SECRET` environment variables as appropriate for your deployment environment.
+You can view the app [here](https://dashboard.heroku.com/apps/appointmate/deploy/github)
 
 ## Usage
 
