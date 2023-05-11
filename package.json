@@ -8,7 +8,8 @@
     "client-build": "cd client & react-scripts build",
     "client-start": "cd client & react-scripts start",
     "server-start": "nodemon index",
-    "start": "npm run client-build & npm run server-start"
+    "start": "npm run client-build & npm run server-start",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "Byron Labuschagne",
