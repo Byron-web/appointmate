@@ -235,14 +235,18 @@ const AppointmentList = () => {
       </div>
       {/* Create Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
+        {/* Display error message if present */}
         <p>{errorMessage}</p>
         <Modal.Header closeButton>
+          {/* Modal title */}
           <Modal.Title>Create Appointment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group>
+              {/* Patient ID */}
               <Form.Label>Patient Id {newAppointmentPatientId}</Form.Label>
+              {/* Dropdown list for selecting patient */}
               <Form.Select
                 aria-label="Default select example"
                 value={newAppointmentPatientId}
@@ -251,18 +255,22 @@ const AppointmentList = () => {
                 }
               >
                 <option value="default">Please select option</option>
+                {/* List of patients */}
                 {patients.map((patient) => (
                   <option value={`${patient.username}`}>
                     {patient.firstname + " " + patient.lastname}
                   </option>
                 ))}
               </Form.Select>
+              {/* Reason for appointment */}
               <Form.Label>Reason for appointment</Form.Label>
+              {/* Input field for entering reason */}
               <Form.Control
                 type="text"
                 value={newAppointmentReason}
                 onChange={(e) => setNewAppointmentReason(e.target.value)}
               />
+              {/* Status */}
               <Form.Label>Status</Form.Label>
               <Form.Select
                 aria-label="Default select example"
@@ -275,8 +283,10 @@ const AppointmentList = () => {
                 <option value="cancelled">Cancelled</option>
                 <option value="completed">Completed</option>
               </Form.Select>
+              {/* Date */}
               <Form.Label>Date</Form.Label>
               <br />
+              {/* Date picker for selecting date and time */}
               <DatePicker
                 selected={newAppointmentDate}
                 onChange={(date) => setNewAppointmentDate(date)}
@@ -289,9 +299,11 @@ const AppointmentList = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          {/* Close button */}
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
+          {/* Save button */}
           <Button variant="primary" onClick={handleCreateAppointment}>
             Save
           </Button>
