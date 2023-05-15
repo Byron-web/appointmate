@@ -14,6 +14,8 @@ const AppointmentList = () => {
   // Define multiple state variables using the useState hook
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
+  const [newBookingDoctorId, setNewBookingDoctorId] = useState("");
+  const [doctors, setDoctors] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [newAppointmentPatientId, setNewAppointmentPatientId] =
     useState("default");
@@ -38,10 +40,10 @@ const AppointmentList = () => {
   /* This code is a React component that displays a apppointment list with various functionalities, including creating new appointments, editing existing appointments, and deleting appointments. It fetches the data from an API using fetch() and sets the state using useState() and useEffect() hooks.*/
 
   useEffect(() => {
-    // Define an async function that fetches appointments for the logged in user
+    // Define an async function that fetches appointments for the logged-in user
     const fetchAppointments = async () => {
       try {
-        // Send a GET request to the server to fetch appointments for the logged in user
+        // Send a GET request to the server to fetch appointments for the logged-in user
         const res = await fetch(
           `${config.REACT_APP_API_ENDPOINT}/api/appointment/${role}/${id}`,
           {
@@ -62,7 +64,7 @@ const AppointmentList = () => {
         setErrorMessage("");
       } catch (err) {
         console.log(err);
-        setErrorMessage("This is an error");
+        setErrorMessage("An error occurred");
       }
     };
     // Call the fetchAppointments function
@@ -101,6 +103,30 @@ const AppointmentList = () => {
     fetchPatients();
   }, []);
 
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await fetch(`${config.REACT_APP_API_ENDPOINT}/api/doctor`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+        });
+        if (!res.ok) {
+          setErrorMessage((await res.json()).err);
+          return;
+        }
+        const data = await res.json();
+        setDoctors(data);
+        setErrorMessage("");
+      } catch (err) {
+        console.log(err);
+        setErrorMessage("This is an error");
+      }
+    };
+    fetchDoctors();
+  }, []);
+
   // This function is called when the "Create Appointment" button is clicked and opens the create modal.
   const handleCreateClick = () => {
     setShowModal(true);
@@ -112,6 +138,7 @@ const AppointmentList = () => {
     setNewAppointmentPatientId("");
     setNewAppointmentReason("");
     setNewAppointmentDate(new Date());
+    setNewBookingDoctorId("");
   };
 
   // This function is called when the "Save" button is clicked in the modal and if any field hasnt been filed it instructs the user to fill those fields, it also sends a POST request to the backed to send the data to the api then to the DB.
@@ -164,6 +191,55 @@ const AppointmentList = () => {
     }
   };
 
+  const handleBookAppointment = async () => {
+    try {
+      console.log("newBookingDoctorId:", newBookingDoctorId);
+      const selectedDoctor = doctors.find(
+        (doctor) => doctor.firstname === newBookingDoctorId
+      );
+
+      if (!selectedDoctor) {
+        console.log(`No doctor found with firstname: ${newBookingDoctorId}`);
+        return;
+      }
+
+      const res = await fetch(
+        `${config.REACT_APP_API_ENDPOINT}/api/appointment/book`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({
+            doctorId: selectedDoctor.firstname,
+            patientId: id,
+            date: newAppointmentDate,
+            reason: newAppointmentReason,
+            status: "pending",
+          }),
+        }
+      );
+
+      const rawResponse = await res.text();
+      console.log("Raw response:", rawResponse);
+
+      if (!res.ok) {
+        const errorData = JSON.parse(rawResponse);
+        setErrorMessage(errorData.err);
+        return;
+      }
+
+      const data = JSON.parse(rawResponse);
+      setAppointments([...appointments, data.appointment]);
+      setErrorMessage("");
+      handleCloseModal();
+    } catch (err) {
+      console.log(err);
+      setErrorMessage("An error occurred");
+    }
+  };
+
   // Function to handle appointment deletion
   const handleDelete = async () => {
     try {
@@ -205,7 +281,13 @@ const AppointmentList = () => {
             </Button>
           </>
         ) : (
-          <></>
+          <Button
+            className="mt-10"
+            variant="secondary"
+            onClick={handleCreateClick}
+          >
+            Book appointment
+          </Button>
         )}
       </div>
       <div>
@@ -235,48 +317,89 @@ const AppointmentList = () => {
       </div>
       {/* Create Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
+        {/* Display error message if present */}
         <p>{errorMessage}</p>
         <Modal.Header closeButton>
+          {/* Modal title */}
           <Modal.Title>Create Appointment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group>
-              <Form.Label>Patient Id {newAppointmentPatientId}</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                value={newAppointmentPatientId}
-                onChange={(e) =>
-                  setNewAppointmentPatientId(e.currentTarget.value)
-                }
-              >
-                <option value="default">Please select option</option>
-                {patients.map((patient) => (
-                  <option value={`${patient.username}`}>
-                    {patient.firstname + " " + patient.lastname}
-                  </option>
-                ))}
-              </Form.Select>
+              {/* Doctor ID */}
+              {role === "patient" && (
+                <>
+                  <Form.Label>Doctor Id</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={newBookingDoctorId}
+                    onChange={(e) =>
+                      setNewBookingDoctorId(e.currentTarget.value)
+                    }
+                  >
+                    <option value="default">Please select a doctor</option>
+                    {doctors.map((doctor) => (
+                      <option value={doctor.firstname}>
+                        {doctor.firstname}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </>
+              )}
+              {/* Patient ID */}
+              {role === "doctor" && (
+                <>
+                  <Form.Label>Patient Id {newAppointmentPatientId}</Form.Label>
+                  {/* Dropdown list for selecting patient */}
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={newAppointmentPatientId}
+                    onChange={(e) =>
+                      setNewAppointmentPatientId(e.currentTarget.value)
+                    }
+                  >
+                    <option value="default">Please select option</option>
+                    {/* List of patients */}
+                    {patients.map((patient) => (
+                      <option value={`${patient.username}`}>
+                        {patient.firstname + " " + patient.lastname}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </>
+              )}
+              {/* Reason for appointment */}
               <Form.Label>Reason for appointment</Form.Label>
+              {/* Input field for entering reason */}
               <Form.Control
                 type="text"
                 value={newAppointmentReason}
                 onChange={(e) => setNewAppointmentReason(e.target.value)}
               />
-              <Form.Label>Status</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                value={newAppointmentStatus}
-                onChange={(e) => setNewAppointmentStatus(e.currentTarget.value)}
-              >
-                <option value="default">Please select option</option>
-                <option value="scheduled">Scheduled</option>
-                <option value="rescheduled">Rescheduled</option>
-                <option value="cancelled">Cancelled</option>
-                <option value="completed">Completed</option>
-              </Form.Select>
+              {/* Status */}
+              {role === "doctor" && (
+                <>
+                  <Form.Label>Status</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={newAppointmentStatus}
+                    onChange={(e) =>
+                      setNewAppointmentStatus(e.currentTarget.value)
+                    }
+                  >
+                    <option value="default">Please select option</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="rescheduled">Rescheduled</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>
+                  </Form.Select>
+                </>
+              )}
+              {/* Date */}
               <Form.Label>Date</Form.Label>
               <br />
+              {/* Date picker for selecting date and time */}
               <DatePicker
                 selected={newAppointmentDate}
                 onChange={(date) => setNewAppointmentDate(date)}
@@ -289,12 +412,20 @@ const AppointmentList = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          {/* Close button */}
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleCreateAppointment}>
-            Save
-          </Button>
+          {/* Save button */}
+          {role === "doctor" ? (
+            <Button variant="primary" onClick={handleCreateAppointment}>
+              Save
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={handleBookAppointment}>
+              Book
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </div>

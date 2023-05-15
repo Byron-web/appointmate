@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import * as _ from "lodash";
 import config from "../../config";
+import "../styles.css";
 
 /* This code imports React and the useState hook from the "react" library, as well as Form, and Button components from the "react-bootstrap" library.
 
@@ -28,6 +29,7 @@ const SignupForm = ({ handleShowLogin }) => {
   const [mobileNo, setMobileNo] = useState("");
   const [degree, setDegree] = useState("");
   const [practiceNumber, setPracticeNumber] = useState("");
+  const [mobileNoError, setMobileNoError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +57,12 @@ const SignupForm = ({ handleShowLogin }) => {
       }
     } else if (!firstname || !lastname || !email || !mobileNo) {
       setSignupError("Missing required fields");
+      return;
+    }
+
+    // Validate mobile number
+    if (!/^\d+$/.test(mobileNo)) {
+      setSignupError("Only insert numbers in the Mobile number field");
       return;
     }
 
@@ -107,6 +115,7 @@ const SignupForm = ({ handleShowLogin }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3 d-flex flex-column justify-content-center align-items-center">
+        <h3>Sign Up</h3>
         {/* Username */}
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -186,11 +195,15 @@ const SignupForm = ({ handleShowLogin }) => {
           {/* Mobile number */}
           <Form.Label>Mobile number</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
             placeholder="Enter mobile number"
             value={mobileNo}
-            onChange={(e) => setMobileNo(e.target.value)}
+            onChange={(e) => {
+              setMobileNo(e.target.value);
+              setMobileNoError("");
+            }}
           />
+          {mobileNoError && <div className="text-danger">{mobileNoError}</div>}
         </Form.Group>
       ) : (
         <></>
@@ -219,15 +232,17 @@ const SignupForm = ({ handleShowLogin }) => {
           />
         </>
       )}
-      <hr className="mt-5 mb-3" />
-      <div className="d-flex justify-content-around align-items-center mb-3">
-        <Button variant="primary" onClick={handleShowLogin}>
-          Log in
-        </Button>
-        <p className="m-0">Or</p>
+      <div className="d-flex flex-column justify-content-around mt-3 mb-3">
         <Button variant="success" type="submit">
           Sign up
         </Button>
+        <hr className="mt-3 mb-3" />
+        <div className="d-flex justify-content-end align-items-center">
+          <p className="m-0">already have an account?</p>
+          <Button className="ml-15" variant="primary" onClick={handleShowLogin}>
+            Log in
+          </Button>
+        </div>
       </div>
       {signupSuccess && (
         <div className="text-success mt-3">Sign up successful!</div>

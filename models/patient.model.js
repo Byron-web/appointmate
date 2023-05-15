@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { model } = require("mongoose");
 
-//User Patient Schema
+//Patient Model Schema
 const PatientSchema = new mongoose.Schema({
   username: {
     type: String,

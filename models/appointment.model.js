@@ -20,7 +20,7 @@ const AppointmentSchema = new mongoose.Schema({
     type: Date,
     required: true,
     set: function (date) {
-      return moment(date, "YYYY-MM-DD HH:mm:ss.SSS").toDate();
+      return moment(date, "YYYY-MM-DD HH:mm:ss.SSS").toDate(); //Formatted to a user friendly structure
     },
   },
   status: {

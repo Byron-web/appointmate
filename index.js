@@ -1,27 +1,29 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const userRoutes = require("./routes/user.routes");
-const doctorRoutes = require("./routes/doctor.routes");
-const patientRoutes = require("./routes/patient.routes");
-const appointmentRoutes = require("./routes/appointment.routes");
-const path = require("path");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
-const config = require("./config/config.json");
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+const express = require("express"); // Import the Express framework
+const bodyParser = require("body-parser"); // Middleware to parse JSON bodies in requests
+const userRoutes = require("./routes/user.routes"); // Import the user routes
+const doctorRoutes = require("./routes/doctor.routes"); // Import the doctor routes
+const patientRoutes = require("./routes/patient.routes"); // Import the patient routes
+const appointmentRoutes = require("./routes/appointment.routes"); // Import the appointment
+const path = require("path"); // Provides utilities for working with file and directory paths
+const mongoose = require("mongoose"); // MongoDB object modeling tool
+const cors = require("cors"); // Middleware for enabling Cross-Origin Resource Sharing (CORS)
+require("dotenv").config(); // Loads environment variables from a .env file
+const config = require("./config/config.json"); // Import the configuration file
+const swaggerJsdoc = require("swagger-jsdoc"); // Library for generating Swagger/OpenAPI documentation
+const swaggerUi = require("swagger-ui-express"); // Middleware for serving Swagger UI
 
-// App configuration
+// Create an instance of the Express application
 const app = express();
+// Middleware to enable cross-origin resource sharing
 app.use(cors());
+// Middleware to parse JSON bodies in requests
 app.use(bodyParser.json());
-
+// Get the port from the environment variables, or use the port specified in the config file
 const port = process.env.PORT || config.port;
 
 //Serve static files if app is in production mode.
 if (process.env.NODE_ENV === "production") {
-  // Priority serve any static files.
+  // Priority serve any static files from the "client/build" directory
   app.use(express.static("client/build"));
 
   // All remaining requests return the React app, so it can handle routing.
