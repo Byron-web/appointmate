@@ -46,7 +46,8 @@ function Welcome() {
       <div className="banner-info--wrapper">
         <Container className="banner-info--container">
           <h4>
-            Login by clicking the login button on the top left of this page
+            Login/Signup by clicking the login button on the top left of this
+            page
           </h4>
           <div className="banner-info--divider"></div>
           <div className="banner-info-footer">

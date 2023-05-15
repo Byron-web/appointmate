@@ -42,6 +42,7 @@ const LoginForm = ({ handleShowSignup }) => {
   //Returns a form to Login as a patient or doctor.
   return (
     <Form onSubmit={handleSubmit}>
+      <h3>Login</h3>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -63,12 +64,15 @@ const LoginForm = ({ handleShowSignup }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Group>
-      <div className="d-flex justify-content-around align-items-center mb-3">
+      <div className="d-flex flex-column justify-content-around align-items-center mb-3">
         <Button variant="success" type="submit">
           Log in
         </Button>
-        <p className="m-0">Or</p>
-        <Button variant="primary" onClick={handleShowSignup}>
+      </div>
+      <hr className="mt-3 mb-3" />
+      <div className="d-flex justify-content-end align-items-center">
+        <p className="m-0">Don't have an account yet?</p>
+        <Button className="ml-15" variant="primary" onClick={handleShowSignup}>
           Sign up
         </Button>
       </div>
