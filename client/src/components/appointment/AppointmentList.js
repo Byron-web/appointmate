@@ -14,7 +14,6 @@ const AppointmentList = () => {
   // Define multiple state variables using the useState hook
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
-  const [pendingAppointments, setPendingAppointments] = useState([]);
   const [newBookingDoctorId, setNewBookingDoctorId] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -139,6 +138,7 @@ const AppointmentList = () => {
     setNewAppointmentPatientId("");
     setNewAppointmentReason("");
     setNewAppointmentDate(new Date());
+    setNewBookingDoctorId("");
   };
 
   // This function is called when the "Save" button is clicked in the modal and if any field hasnt been filed it instructs the user to fill those fields, it also sends a POST request to the backed to send the data to the api then to the DB.
@@ -194,6 +194,15 @@ const AppointmentList = () => {
   const handleBookAppointment = async () => {
     try {
       console.log("newBookingDoctorId:", newBookingDoctorId);
+      const selectedDoctor = doctors.find(
+        (doctor) => doctor.firstname === newBookingDoctorId
+      );
+
+      if (!selectedDoctor) {
+        console.log(`No doctor found with firstname: ${newBookingDoctorId}`);
+        return;
+      }
+
       const res = await fetch(
         `${config.REACT_APP_API_ENDPOINT}/api/appointment/book`,
         {
@@ -203,7 +212,7 @@ const AppointmentList = () => {
             Authorization: `${token}`,
           },
           body: JSON.stringify({
-            doctorId: newBookingDoctorId,
+            doctorId: selectedDoctor.firstname,
             patientId: id,
             date: newAppointmentDate,
             reason: newAppointmentReason,
@@ -211,20 +220,23 @@ const AppointmentList = () => {
           }),
         }
       );
+
       const rawResponse = await res.text();
       console.log("Raw response:", rawResponse);
+
       if (!res.ok) {
         const errorData = JSON.parse(rawResponse);
         setErrorMessage(errorData.err);
         return;
       }
+
       const data = JSON.parse(rawResponse);
       setAppointments([...appointments, data.appointment]);
       setErrorMessage("");
       handleCloseModal();
     } catch (err) {
       console.log(err);
-      setErrorMessage("This is an error");
+      setErrorMessage("An error occurred");
     }
   };
 
@@ -327,8 +339,8 @@ const AppointmentList = () => {
                   >
                     <option value="default">Please select a doctor</option>
                     {doctors.map((doctor) => (
-                      <option value={doctor.id}>
-                        {doctor.firstname + " " + doctor.lastname}
+                      <option value={doctor.firstname}>
+                        {doctor.firstname}
                       </option>
                     ))}
                   </Form.Select>
