@@ -57,4 +57,12 @@ router.delete(
   appointmentsController.deleteAppointment
 );
 
+// Book an appointment
+router.post(
+  "/book",
+  authenticationMiddleware.authenticate,
+  authenticationMiddleware.rolePolicy([USER_ROLE_PATIENT]),
+  appointmentsController.bookAppointment
+);
+
 module.exports = router;

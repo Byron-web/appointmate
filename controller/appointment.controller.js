@@ -89,3 +89,14 @@ exports.deleteAppointment = async (req, res) => {
       .send({ err: `Failed to delete appointment by id: [${req.params.id}]` });
   }
 };
+
+// Book a new appointment by patient
+exports.bookAppointment = async (req, res) => {
+  try {
+    const appointment = await db.appointments.createAppointment_async(req.body);
+    return res.json({ appointment });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ err: "Failed to book appointment" });
+  }
+};

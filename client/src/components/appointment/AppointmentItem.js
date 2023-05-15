@@ -70,6 +70,10 @@ const AppointmentItem = ({
 
   //The handleEditClick function is used to set the showModal state variable to true when the user clicks the "Edit" button thus opening the edit modal.
   const handleEditClick = () => {
+    setEditAppointmentPatientId(patientId);
+    setEditAppointmentReason(reason);
+    setEditAppointmentStatus(status);
+    setEditAppointmentDate(new Date(date)); // Make sure the date is correctly formatted
     setShowModal(true);
   };
 
@@ -121,9 +125,10 @@ const AppointmentItem = ({
   // The handleCloseModal function is used to close the edit modal and reset the state variables to their initial values.
   const handleCloseModal = () => {
     setShowModal(false);
-    setEditAppointmentPatientId("");
-    setEditAppointmentReason("#FFFFFF");
-    setEditAppointmentDate(new Date());
+    setEditAppointmentPatientId(null);
+    setEditAppointmentReason(null);
+    setEditAppointmentDate(null);
+    setEditAppointmentStatus(null);
   };
 
   return (
@@ -210,6 +215,7 @@ const AppointmentItem = ({
                 type="text"
                 value={editAppointmentReason}
                 onChange={(e) => setEditAppointmentReason(e.target.value)}
+                placeholder={reason}
               />
               {/* Status selection */}
               <Form.Label>Status</Form.Label>

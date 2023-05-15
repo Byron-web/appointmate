@@ -6,13 +6,13 @@ exports.getAllAppointments_async = async () => {
 };
 
 // Create a new appointment
-exports.createAppointment_async = async (todo) => {
-  return await new Appointment(todo).save();
+exports.createAppointment_async = async (appointment) => {
+  return await new Appointment(appointment).save();
 };
 
 // Update an appointment by ID.
-exports.updateAppointment_async = async (id, todo) => {
-  return await Appointment.findByIdAndUpdate(id, todo);
+exports.updateAppointment_async = async (id, appointment) => {
+  return await Appointment.findByIdAndUpdate(id, appointment);
 };
 
 // Delete an appointment by ID.
